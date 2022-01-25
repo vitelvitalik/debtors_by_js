@@ -97,7 +97,7 @@ function App() {
         setListDebtors([...listDebtors, { id: 1, total: totalSumm, debtor }]);
       }
 
-      // обнулим должника
+      // обнулим должника // проверка гит
       setDebtor({
         name: "",
         summ: "",
