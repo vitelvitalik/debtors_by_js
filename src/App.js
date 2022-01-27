@@ -44,22 +44,25 @@ function App() {
 
   //возврат долга
   function doReturn(e) {
+    // определим переменную индекса элемента списка
+    var index = listDebtors.findIndex(item => item.id + '' === e.target.id);
+
     // определим текущее состояние признака возврата
-    var returned = listDebtors[listDebtors.findIndex(item => item.id + '' === e.target.id)].debtor.returned;
+    var returned = listDebtors[index].debtor.returned;
 
     // определим сумму задолженности
-    var oldSumm = listDebtors[listDebtors.findIndex(item => item.id + '' === e.target.id)].debtor.oldSumm;
-    var summ = listDebtors[listDebtors.findIndex(item => item.id + '' === e.target.id)].debtor.summ;
+    var oldSumm = listDebtors[index].debtor.oldSumm;
+    var summ = listDebtors[index].debtor.summ;
 
     // инвертируем признак возврата
-    listDebtors[listDebtors.findIndex(item => item.id + '' === e.target.id)].debtor.returned = returned == true ? false : true;
+    listDebtors[index].debtor.returned = !returned;
 
     // по признаку возврата изменяем сумму задолженности - 0 либо старая сумма
     if (returned == false) {
-      listDebtors[listDebtors.findIndex(item => item.id + '' === e.target.id)].debtor.summ = 0;
+      listDebtors[index].debtor.summ = 0;
       listDebtors[listDebtors.length - 1].total -= summ;
     } else {
-      listDebtors[listDebtors.findIndex(item => item.id + '' === e.target.id)].debtor.summ = oldSumm;
+      listDebtors[index].debtor.summ = oldSumm;
       listDebtors[listDebtors.length - 1].total += oldSumm;
     }
     setListDebtors([...listDebtors]);
