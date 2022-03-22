@@ -1,11 +1,19 @@
 import './App.css';
-import React from 'react';
+import React, {Component} from 'react'
 import {useEffect, useState} from "react";
 import {Debtor} from './Debtor';
 import {Debtorlist} from './Debtorlist';
+import {
+    Link,
+    Router,
+    Route,
+    Switch,
+    Redirect,
+    withRouter
+  } from "react-router-dom"
 
 
-function App() {
+  class App extends Component {
 
     // const [listDebtors, setListDebtors] = useState(function () {
     //     const readListDebtors = localStorage.getItem("listDebtors");
@@ -155,18 +163,27 @@ function App() {
     //         setListDebtors([]);
     //     }
     // }
-
-
+render (){
+    const { history } = this.props
     return (
 
         <div className="App">
             <header className="App-header">
                 <h3>Учёт задолженностей</h3>
             </header>
-            <Debtor/>
-            <Debtorlist/>
+            <body>
+            <Switch>
+            {/* <Link to="/">Список должников</Link>
+            <Link to="/addDebtor">Добавить должника</Link> */}
+
+            <Route history={history} path="/" component={Debtorlist} />
+            <Route history={history} path="/addDebtor" component={Debtor} />
+            <Redirect from='/' to='/addDebtor'/>
+            </Switch>
+            </body>
         </div>
     );
 }
+  }
 
-export default App;
+export default withRouter(App);
